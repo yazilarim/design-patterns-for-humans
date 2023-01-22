@@ -3,340 +3,434 @@
 ***
 
 <p align="center">
-🎉 Ultra-simplified explanation to design patterns! 🎉
+🎉 En basit şekilde tasarım kalıpları! 🎉
 </p>
 <p align="center">
-A topic that can easily make anyone's mind wobble. Here I try to make them stick in to your mind (and maybe mine) by explaining them in the <i>simplest</i> way possible.
+Tasarım kalıpları kompleks güzel bir yazilim başlığı konusudur. <i>En basit</i> şekilde tasarım kalıplarını anlatmaya çalışacağım.
 </p>
 
 ***
 
-<sub>Check out my [blog](http://kamranahmed.info) and say "hi" on [Twitter](https://twitter.com/kamranahmedse).</sub>
-
-Introduction
+Giriş
 =================
 
-Design patterns are solutions to recurring problems; **guidelines on how to tackle certain problems**. They are not classes, packages or libraries that you can plug into your application and wait for the magic to happen. These are, rather, guidelines on how to tackle certain problems in certain situations.
+Tasarım kalıpları *sürekli tekrarlanan* konular çözüm yöntemleri sunar. Tasarım kalıpları belirli problemlere karşlılık belirli çözümler sunan kalıplardır.
 
-> Design patterns are solutions to recurring problems; guidelines on how to tackle certain problems
+Tasarım kalıpları proje ekleyebileceğiniz belli bir class, namespace veya dll değildir!!
 
-Wikipedia describes them as
+> Tasarım kalıpları sürekli tekrarlan problem için çözüm yöntemi sunar bununla birlikte her uygulandığı problem farklılaşabilir. Yani problem genel, uygulanacağı içerik değişebilir.
 
-> In software engineering, a software design pattern is a general reusable solution to a commonly occurring problem within a given context in software design. It is not a finished design that can be transformed directly into source or machine code. It is a description or template for how to solve a problem that can be used in many different situations.
 
-⚠️ Be Careful
+> Tasarım kalıpları belli bir problemi çözmek için kabataslak sunar, ve kabataslağın uygulandığı durumlar her zaman birbirinden değişiktir.
+
+⚠️ Aman Dikkat
 -----------------
-- Design patterns are not a silver bullet to all your problems.
-- Do not try to force them; bad things are supposed to happen, if done so. 
-- Keep in mind that design patterns are solutions **to** problems, not solutions **finding** problems; so don't overthink.
-- If used in a correct place in a correct manner, they can prove to be a savior; or else they can result in a horrible mess of a code.
+- Tasarım kalıpları her problemin çözümü değildir.
+- Tasarım kalıplarını uygulamak için fırsat aramayın, Probleminizi tasarım kalıplarına göre düşünmeyin. 
+- Tasarım kalıpları problemler için çözüm yolu sağlar, tasarım kalıplarını uygulayacağım diye problem yaratmayın.
+- Tasarım kalıpları doğru *durumda* doğru probleme uygulanırsa mükemmel çözümlerdir, ama eğer yanlış durum ya da yanlış probleme uygulanırsa kötü kod kokusun kaynağı olabilirler! 
 
-> Also note that the code samples below are in PHP-7, however this shouldn't stop you because the concepts are same anyways.
+> Aşağıda kodlar c#ile yazılmıştır ama asla kendi yazılım kabilenizin diline uygulamaktan kaçınmayın.
 
-Types of Design Patterns
+Tasarım kalıpları tipleri
 -----------------
 
-* [Creational](#creational-design-patterns)
+* [Yaratımsal Kalıplar](#creational-design-patterns)
 * [Structural](#structural-design-patterns)
 * [Behavioral](#behavioral-design-patterns)
 
-Creational Design Patterns
+Yaratımsal Tasarım Kalıpları
 ==========================
 
-In plain words
-> Creational patterns are focused towards how to instantiate an object or group of related objects.
+Yazıya dökersek :
+> Yaratımsal kalıplar bir objeninin nasıl örnekleneceği problemine veya bir grup nesneinin nasıl örneklenebileceği problemine çözüm sunar .
 
-Wikipedia says
-> In software engineering, creational design patterns are design patterns that deal with object creation mechanisms, trying to create objects in a manner suitable to the situation. The basic form of object creation could result in design problems or added complexity to the design. Creational design patterns solve this problem by somehow controlling this object creation.
 
- * [Simple Factory](#-simple-factory)
+ * [Basit Fabrika (Simple Factory)](#-simple-factory)
  * [Factory Method](#-factory-method)
  * [Abstract Factory](#-abstract-factory)
  * [Builder](#-builder)
  * [Prototype](#-prototype)
  * [Singleton](#-singleton)
 
-🏠 Simple Factory
+🏠 Basit Fabrika (Simple Factory)
 --------------
-Real world example
-> Consider, you are building a house and you need doors. You can either put on your carpenter clothes, bring some wood, glue, nails and all the tools required to build the door and start building it in your house or you can simply call the factory and get the built door delivered to you so that you don't need to learn anything about the door making or to deal with the mess that comes with making it.
+Gerçek dünya senaryosu
+> Varsayılımki, bir ev inşa ediyorsunuz ve ev inşa etmek için kapılara ihtiyacınız var. Bunun için ihtiyacınız olan şeyler ise : biraz tahta, yapıştırıcı ve çivi (ve kapı yapmak için gereken diğer araçlar). Kapıyı gerekli eşyaları kullanarak daha sonra yapabilirsiniz **ama** kapıyı kendiniz yapmak yerine bir basit bir fabrikadan yani bir marangozhaneden isteyebilirsiniz. Marangozhaneden istediğiniz zaman eviniz içerisindeki yapacağınız bir sürü kir ve işten kutulmuş olursunuz. 
 
-In plain words
-> Simple factory simply generates an instance for client without exposing any instantiation logic to the client
 
-Wikipedia says
-> In object-oriented programming (OOP), a factory is an object for creating other objects – formally a factory is a function or method that returns objects of a varying prototype or class from some method call, which is assumed to be "new".
+Basitçe : 
+>Basit Fabrika  istediğiniz nesnenin nasıl yaratılacağı mantığından ve yapacağınız efordan sizi kurtarır.
+>Sizi yani istemiciyi(veya client'ı) nesnenin nasıl yaratılacağı karşmasından kurtarır.
+>Nesne tabanlı programlamada(bundan sonra OOP diyeceğim), bir nesne olan *fabrika* diğer objeleri ve obje grubunu yaratmak için kullanılır.
+>Kullanacağımız dil olan c# ile nesne yaratma işlemini new keyword ile yapılmaktadır ama kendi dilinizi kullanarak da bu yapıyı uygulayabilirsiniz.
 
-**Programmatic Example**
 
-First of all we have a door interface and the implementation
-```php
-interface Door
+**Yazılım Örneği**
+
+Öncelilikle bizim kapı arayüzü(interface) ve uygulaması(implemantation'ı) var.
+```csharp
+public interface Door
 {
-    public function getWidth(): float;
-    public function getHeight(): float;
+
 }
 
-class WoodenDoor implements Door
+public class WoodenDoor : Door
 {
-    protected $width;
-    protected $height;
-
-    public function __construct(float $width, float $height)
-    {
-        $this->width = $width;
-        $this->height = $height;
-    }
-
-    public function getWidth(): float
-    {
-        return $this->width;
-    }
-
-    public function getHeight(): float
-    {
-        return $this->height;
-    }
+    private float _width { get;  }
+    private float _height { get; set; }
+    public WoodenDoor(float width,float height)
+    {
+        _width = width;
+        _height = height;
+    }
+    public KeyValuePair<float, float> GetWidthAndHeight()
+    {
+        return new KeyValuePair<float, float>(_width,_height);
+    }
 }
 ```
-Then we have our door factory that makes the door and returns it
-```php
-class DoorFactory
+
+Daha sonra kapı fabrikamızı(örneğimizdeki marangozhane oluyor bu class) yaratalım : 
+
+```csharp
+public class DoorFactory
 {
-    public static function makeDoor($width, $height): Door
-    {
-        return new WoodenDoor($width, $height);
-    }
+    public static Door MakeDoor(float width,float height)
+    {
+        return new WoodenDoor(width, height);
+    }
 }
 ```
-And then it can be used as
-```php
-// Make me a door of 100x200
-$door = DoorFactory::makeDoor(100, 200);
+Daha sonra aşağıdaki gibi basit fabrikamızı kullanabiliriz: 
 
-echo 'Width: ' . $door->getWidth();
-echo 'Height: ' . $door->getHeight();
-
-// Make me a door of 50x100
-$door2 = DoorFactory::makeDoor(50, 100);
+```csharp
+// 75f(genislik)x200(yuksekliğinde) bir kapı yarattık.
+var door = DoorFactory.MakeDoor(75f,200f);
 ```
 
-**When to Use?**
+**Ne zaman kullanılmalı?**
 
-When creating an object is not just a few assignments and involves some logic, it makes sense to put it in a dedicated factory instead of repeating the same code everywhere.
+Obje yaratırken bir çok parametremiz olduğunda, ve iş mantığı(bussiness logic) karmaşıklaştığı zaman; nesne yaratma işlemini bir fabrikaya koymak, kod tekrarını önlemek için çok yararlı olacaktır.
 
-🏭 Factory Method
+
+🏭Fabrika Metodu (Factory Method)
 --------------
+Gerçek dünyası senaryosu 1 : 
 
-Real world example
-> Consider the case of a hiring manager. It is impossible for one person to interview for each of the positions. Based on the job opening, she has to decide and delegate the interview steps to different people.
+> Bir genel müdürün Developer işe alacağını düşünelim. 
 
-In plain words
-> It provides a way to delegate the instantiation logic to child classes.
+Kod'un mantığı :
+> Genel Müdür factory method'u üzüzerinde tutar.
+> İşe alım yapacak(developer yaratacak) olan bu *kişi*(Genel Müdür) fabrika metoduna sahip olacak olan nesnedir. İşe alım yapacak olan kişi "Genel Müdür"dür. 
+> Bu yüzden "Genel Müdür" fabrika metodunu kendi üstünde tutar.
 
-Wikipedia says
-> In class-based programming, the factory method pattern is a creational pattern that uses factory methods to deal with the problem of creating objects without having to specify the exact class of the object that will be created. This is done by creating objects by calling a factory method—either specified in an interface and implemented by child classes, or implemented in a base class and optionally overridden by derived classes—rather than by calling a constructor.
+**Yazılım Örneği**
+İlk başta çalışan yapımızı kuralım : 
 
- **Programmatic Example**
-
-Taking our hiring manager example above. First of all we have an interviewer interface and some implementations for it
-
-```php
-interface Interviewer
+```csharp
+public interface Calisan
 {
-    public function askQuestions();
+    void DoSomeWork();
 }
 
-class Developer implements Interviewer
+public class Developer : Calisan
 {
-    public function askQuestions()
-    {
-        echo 'Asking about design patterns!';
-    }
-}
-
-class CommunityExecutive implements Interviewer
-{
-    public function askQuestions()
-    {
-        echo 'Asking about community building';
-    }
+    public void DoSomeWork()
+    {
+        System.Console.WriteLine("Kodlar yazılıyor");
+    }
 }
 ```
 
-Now let us create our `HiringManager`
+Factory Method'u kodlayalım : 
 
-```php
-abstract class HiringManager
+```csharp
+
+public abstract class HireManager
 {
-
-    // Factory method
-    abstract protected function makeInterviewer(): Interviewer;
-
-    public function takeInterview()
-    {
-        $interviewer = $this->makeInterviewer();
-        $interviewer->askQuestions();
-    }
+    //Factory Method
+    public abstract Calisan IseAlimYap();
 }
 
-```
-Now any child can extend it and provide the required interviewer
-```php
-class DevelopmentManager extends HiringManager
+public class SirketMuduru : HireManager
 {
-    protected function makeInterviewer(): Interviewer
-    {
-        return new Developer();
-    }
-}
-
-class MarketingManager extends HiringManager
-{
-    protected function makeInterviewer(): Interviewer
-    {
-        return new CommunityExecutive();
-    }
+	//Factory Method
+    public Calisan IseAlimYap()
+    {
+	    return new Developer();
+    }
 }
 ```
-and then it can be used as
 
-```php
-$devManager = new DevelopmentManager();
-$devManager->takeInterview(); // Output: Asking about design patterns
+Client Kodu : 
 
-$marketingManager = new MarketingManager();
-$marketingManager->takeInterview(); // Output: Asking about community building.
+```csharp
+var mudur = new SirketMuduru();
+var developer = mudur.IseAlimYap();
 ```
 
-**When to use?**
+**Ne zaman kullanılı?**
+Client'ın nesne yaratma sorumluluğunu başka bir nesneye akatarmasını istediği zaman kullanır.
+____________________
 
-Useful when there is some generic processing in a class but the required sub-class is dynamically decided at runtime. Or putting it in other words, when the client doesn't know what exact sub-class it might need.
 
-🔨 Abstract Factory
+Gerçek dünya senaryosu 2 : 
+
+> Bir genel müdürün Developer ve/veya Analist işe alacağını düşünelim.   Genel Müdür işe alacağı kişilerin pozisyonuna bağlı olarak kişiyi seçmesi gerekir. 
+> İşe alım yapacak(işçi yaratacak) olan bu kişi fabrika metoduna sahip olacak olan nesnedir.
+
+Kod'un mantığı
+> - Factory Method'da hangi nesnenin yarataılacağına karar veren  "Genel Mudur"dür çünkü işe alımdan sorumlu tutacağı kişinin bilgisi ve **işe alınacak pozisyonun** bilgisi tutar.
+> - > GenelMüdürün bilmesi gereken tek şey işe alım yapacağı pozisyon ve işe alım yapacak kişinin bilgisidir. Bu bilgilere göre işçi alacaktır(yaratacaktır).
+> Pozison bazında işe alınacak kişinin seçildiği(yaratıldığı) metoda FactoryMetodu denir.
+> 
+> Örneğimizde işe alma sorumluluğu olan, soyut sınıf olan ,HireManager'ın abstract olarak işaretlenen factory metodunun, alt sınıflarda(derived/child sınıflarda) spesifik bir pozisyondan işe alınacak olan çalışan örneklenmesini sağlayan metoda fabrika metodur denir.
+> 
+> Factory method HireManager'ların üzerindedir. Factory metot Calisan yaratır(create eder).
+
+
+**Yazılım Örneği**
+İlk başta çalışan yapımızı kuralım : 
+
+```csharp
+public interface Calisan
+{
+    void DoSomeWork();
+}
+
+public class Developer : Calisan
+{
+    public void DoSomeWork()
+    {
+        System.Console.WriteLine("Kodlar yazılıyor");
+    }
+}
+
+public class Analist : Calisan
+{
+    public void DoSomeWork()
+    {
+        System.Console.WriteLine("Analiz yapılıyor.");
+    }
+}
+```
+
+Factory Method'ı kodlayalım : 
+
+```csharp
+
+public abstract class HireManager
+{
+    //Factory Method
+    public abstract Calisan IseAlimYap(CalisanTipi calisanTipi);
+}
+
+public class SirketMuduru : HireManager
+{
+
+	//Factory Method
+    public Calisan IseAlimYap(CalisanTipi calisanTipi)
+    {
+        Calisan calisan = null;
+        if (calisanTipi == CalisanTipi.Developer)
+        {
+            calisan = new Developer();
+        }
+        if (calisanTipi == CalisanTipi.Analist)
+        {
+            calisan = new Analist();
+        }
+        return calisan;
+    }
+}
+```
+
+
+Client Kodu : 
+
+```csharp
+var mudur = new SirketMuduru();
+mudur.IseAlimYap(CalisanTipi.Analist);
+```
+
+**Ne zaman kullanılmalı ?**
+Eğer calisma zamanında (runtime'da) client hangi sınıfı yaratmak isteyeceğini bilmiyorsa fabrika metotları yararlı olabilir.
+Aynı zamanda nesne yaratmayı client aldığından client kodunda sadeleşmede de sağladığında temiz kod (clean code) yazılmasına yardımcı olur.
+
+
+
+🔨 Soyut Fabrika (Abstract Factory)
 ----------------
 
-Real world example
-> Extending our door example from Simple Factory. Based on your needs you might get a wooden door from a wooden door shop, iron door from an iron shop or a PVC door from the relevant shop. Plus you might need a guy with different kind of specialities to fit the door, for example a carpenter for wooden door, welder for iron door etc. As you can see there is a dependency between the doors now, wooden door needs carpenter, iron door needs a welder etc.
 
-In plain words
-> A factory of factories; a factory that groups the individual but related/dependent factories together without specifying their concrete classes.
+Gerçek dünya seneryosu: 
+> Bir Genel Müdürün Developer ve/veya Analist işe alacağını düşünelim.  Genel Müdürün Developer ikiye ayrı grup olarak işe alım yapmak istiyor. Developer Grubu Front End ve Back End olarak ikiye ayrılmıştır.  Genel Müdür işe alacağı kişilerin pozisyonuna bağlı olarak kişiyi işe alması gerekmektedir. 
+> Artık Genel Müdür işçi alma(yaratma) işlemini başka bir sınıfa devretmek istiyor.
+> Bu durumda Genel Müdür artık client olup işe alma sürecini HireManager'lara bırakmaksı gerekir.
+> İşe alım yapacak(işçi yaratacak) olan bu kişi fabrika metoduna sahip olacak olan nesnedir.
 
-Wikipedia says
-> The abstract factory pattern provides a way to encapsulate a group of individual factories that have a common theme without specifying their concrete classes
+Basitçe : 
+> Abstract Factory : Fabrika metotlardan oluşan bir class'ıdır. 
+> 
+> Abstract Factory : Birbirleriye yakın ilşikisi olan nesneleri yaratım problemini bir araya toplar, birbirleriyle ilişkisi olmayan yapılar aynı abstract factory'ye koyulmamalıdır!!!
+> 
+> Abstract Factory : tekil(yani örneğimizdeki Analist) veya birliktelik ifade eden (Front End developer ve Back End developer) nesneleri yaratılacağı, hangi nesnenin yaratılacağını soyut sınıfın üstüne yükleyen tasarım kalıbına denir.
 
-**Programmatic Example**
+**Yazılım Örneğin?**
 
-Translating the door example above. First of all we have our `Door` interface and some implementation for it
-
-```php
-interface Door
+Çalışan yapımız aşağıdaki şekildedir : 
+```csharp
+public interface Calisan
 {
-    public function getDescription();
+    void DoSomeWork();
 }
 
-class WoodenDoor implements Door
+public class FrontEndDeveloper : Calisan
 {
-    public function getDescription()
-    {
-        echo 'I am a wooden door';
-    }
+    public void DoSomeWork()
+    {
+        System.Console.WriteLine("Kodlar yazılıyor");
+    }
 }
 
-class IronDoor implements Door
+public class BackEndDeveloper : Calisan
 {
-    public function getDescription()
-    {
-        echo 'I am an iron door';
-    }
-}
-```
-Then we have some fitting experts for each door type
-
-```php
-interface DoorFittingExpert
-{
-    public function getDescription();
+    public void DoSomeWork()
+    {
+        System.Console.WriteLine("Kodlar yazılıyor");
+    }
 }
 
-class Welder implements DoorFittingExpert
+public class Analist : Calisan
 {
-    public function getDescription()
-    {
-        echo 'I can only fit iron doors';
-    }
-}
-
-class Carpenter implements DoorFittingExpert
-{
-    public function getDescription()
-    {
-        echo 'I can only fit wooden doors';
-    }
+    public void DoSomeWork()
+    {
+        System.Console.WriteLine("Analiz yapılıyor.");
+    }
 }
 ```
 
-Now we have our abstract factory that would let us make family of related objects i.e. wooden door factory would create a wooden door and wooden door fitting expert and iron door factory would create an iron door and iron door fitting expert
-```php
-interface DoorFactory
+Calisan runtime da gelen parametreye göre örneklenebilmesi için bir enum oluşturdum, eğer örneklemek istediğini yapıyı runtime ne olacağını bilemiyorsanız bir enum yaratıp yaratılacak nesnenin tipinin enum'a devredebilirsiniz.
+```csharp
+public enum CalisanTipi
 {
-    public function makeDoor(): Door;
-    public function makeFittingExpert(): DoorFittingExpert;
-}
-
-// Wooden factory to return carpenter and wooden door
-class WoodenDoorFactory implements DoorFactory
-{
-    public function makeDoor(): Door
-    {
-        return new WoodenDoor();
-    }
-
-    public function makeFittingExpert(): DoorFittingExpert
-    {
-        return new Carpenter();
-    }
-}
-
-// Iron door factory to get iron door and the relevant fitting expert
-class IronDoorFactory implements DoorFactory
-{
-    public function makeDoor(): Door
-    {
-        return new IronDoor();
-    }
-
-    public function makeFittingExpert(): DoorFittingExpert
-    {
-        return new Welder();
-    }
+    FrontEndDeveloper,
+    BackEndDeveloper,
+    Analist
 }
 ```
-And then it can be used as
-```php
-$woodenFactory = new WoodenDoorFactory();
 
-$door = $woodenFactory->makeDoor();
-$expert = $woodenFactory->makeFittingExpert();
+Şimdi ise developer oluşturaca  soyut fabrikayı (abstract factory) yaratalım : 
+```csharp
+class ConcreteDeveloperHireManager : AbstractDeveloperHireManager
+{
+    protected int DogruDeveloperCevap { get; } = 2;
+    // Factory Method1
+    public override Calisan HireFrontEndDeveloper()
+    {
+        var iseAlindiMi = SoruSorFrontEndDeveloper();
+        if (iseAlindiMi)
+            return new FrontEndDeveloper();
+        return null;
+    }
+    // Factory Method2
+    public override Calisan HireBackEndDeveloper()
+    {
+        var iseAlindiMi = SoruSorBackEndDeveloper();
+        if (iseAlindiMi)
+            return new BackEndDeveloper();
+        return null;
+    }
+    #region Yardımcı metotlar
+    protected bool SoruSorFrontEndDeveloper()
+    {
+        System.Console.WriteLine("1+1 = ?");
+        var cevap = System.Console.Read();
+        if(cevap==DogruDeveloperCevap)
+            return  true;
+        return false;
+    }
+    protected bool SoruSorBackEndDeveloper()
+    {
+        System.Console.WriteLine("0+2 = ?");
+        var cevap = System.Console.Read();
+        if(cevap==DogruDeveloperCevap)
+            return  true;
+        return false;
+    }
+    #endregion
 
-$door->getDescription();  // Output: I am a wooden door
-$expert->getDescription(); // Output: I can only fit wooden doors
-
-// Same for Iron Factory
-$ironFactory = new IronDoorFactory();
-
-$door = $ironFactory->makeDoor();
-$expert = $ironFactory->makeFittingExpert();
-
-$door->getDescription();  // Output: I am an iron door
-$expert->getDescription(); // Output: I can only fit iron doors
+}
 ```
 
-As you can see the wooden door factory has encapsulated the `carpenter` and the `wooden door` also iron door factory has encapsulated the `iron door` and `welder`. And thus it had helped us make sure that for each of the created door, we do not get a wrong fitting expert.   
+Daha sonra analist yaratan soyut fabrikayı yaratalım : 
 
-**When to use?**
+```csharp
+public class ConcreteAnalistHireManager : AbstractAnalistHireManager
+{
+    public string DogruCevap { get;  } = "Problemi tespit etmek.";
+    public override Calisan HireAnalist()
+    {
+        if (SoruSor("Analist il görevi nedir?"))
+        {
+            return new Analist();
+        }
+        return null;
+    }
 
-When there are interrelated dependencies with not-that-simple creation logic involved
+    private bool SoruSor(string soru)
+    {
+        System.Console.WriteLine(soru);
+        var cevap = Console.ReadLine();
+        if (cevap == DogruCevap)
+        {
+            return true;
+        }
+        return false;
+    }
+}
+```
+
+Client kodu :
+
+```csharp
+public class SirketMuduru
+{
+    public Calisan Hire(CalisanTipi calisanTipi)
+    {
+        var analist = calisanTipi == CalisanTipi.Analist;
+        var frontEnd = calisanTipi == CalisanTipi.FrontEndDeveloper;
+        var backEnd = calisanTipi == CalisanTipi.FrontEndDeveloper;
+        if (frontEnd || backEnd)
+        {
+            AbstractDeveloperHireManager developerFactory = new  ConcreteDeveloperHireManager();
+            if (frontEnd)
+            {
+                var frontEndDeveloper = developerFactory.HireFrontEndDeveloper();
+                return frontEndDeveloper;
+            }
+            if (backEnd)
+            {
+                var backEndDeveloper = developerFactory.HireBackEndDeveloper();
+                return backEndDeveloper;
+            }
+        }
+        if (analist)
+        {
+            AbstractAnalistHireManager analistHireManager = new ConcreteAnalistHireManager();
+            var analizci = analistHireManager.HireAnalist();
+            return analizci;
+        }
+        return null;
+    }
+}
+```
+
+Abstract factory birbirlye ilşkili olan nesnelerin yaratımını kapsüller,böylece hem karmaşa önlenir hem de daha temiz bir kod yapısına geçilebilir.
+
+**Ne zaman kullanılmalı ?**
+İlişkili nesnelerin veya bir nesne ailesinin olduğu yerde abstract factory kullanılabilir.
 
 👷 Builder
 --------------------------------------------
