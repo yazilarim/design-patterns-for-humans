@@ -118,7 +118,7 @@ Obje yaratırken bir çok parametremiz olduğunda, ve iş mantığı(bussiness l
 --------------
 Gerçek dünyası senaryosu 1 : 
 
-> Bir genel müdürün Developer işe alacağını düşünelim. 
+> Bir genel müdürün Developer işe alacağını düşünelim. Genel müdür developer işe alacak yani programlama açısından yaratacaktır. Porgramatik açıdan ile genel müdür, developer yaratacak olan fabrika metodunu sahibi olacaktır. 
 
 Kod'un mantığı :
 > Genel Müdür factory method'u üzüzerinde tutar.
@@ -182,12 +182,12 @@ Gerçek dünya senaryosu 2 :
 
 Kod'un mantığı
 > - Factory Method'da hangi nesnenin yarataılacağına karar veren  "Genel Mudur"dür çünkü işe alımdan sorumlu tutacağı kişinin bilgisi ve **işe alınacak pozisyonun** bilgisi tutar.
-> - > GenelMüdürün bilmesi gereken tek şey işe alım yapacağı pozisyon ve işe alım yapacak kişinin bilgisidir. Bu bilgilere göre işçi alacaktır(yaratacaktır).
+>  - GenelMüdürün bilmesi gereken tek şey işe alım yapacağı pozisyon ve işe alım yapacak kişinin bilgisidir. Bu bilgilere göre işçi alacaktır(yaratacaktır).
 > Pozison bazında işe alınacak kişinin seçildiği(yaratıldığı) metoda FactoryMetodu denir.
 > 
 > Örneğimizde işe alma sorumluluğu olan, soyut sınıf olan ,HireManager'ın abstract olarak işaretlenen factory metodunun, alt sınıflarda(derived/child sınıflarda) spesifik bir pozisyondan işe alınacak olan çalışan örneklenmesini sağlayan metoda fabrika metodur denir.
 > 
-> Factory method HireManager'ların üzerindedir. Factory metot Calisan yaratır(create eder).
+> Factory method HireManager'ların üzerindedir. Factory metot Calisan yaratır(create eder). Genel Müdür aynı zamanda bir HireManager'dır. 
 
 
 **Yazılım Örneği**
@@ -244,6 +244,11 @@ public class SirketMuduru : HireManager
         return calisan;
     }
 }
+public enum CalisanTipi
+{
+    Developer,
+    Analist
+}
 ```
 
 
@@ -266,7 +271,7 @@ Aynı zamanda nesne yaratmayı client aldığından client kodunda sadeleşmede 
 
 Gerçek dünya seneryosu: 
 > Bir Genel Müdürün Developer ve/veya Analist işe alacağını düşünelim.  Genel Müdürün Developer ikiye ayrı grup olarak işe alım yapmak istiyor. Developer Grubu Front End ve Back End olarak ikiye ayrılmıştır.  Genel Müdür işe alacağı kişilerin pozisyonuna bağlı olarak kişiyi işe alması gerekmektedir. 
-> Artık Genel Müdür işçi alma(yaratma) işlemini başka bir sınıfa devretmek istiyor.
+> Artık Genel Müdür işçi alma(yaratma) işlemini başka bir kişiye devretmek istiyor.
 > Bu durumda Genel Müdür artık client olup işe alma sürecini HireManager'lara bırakmaksı gerekir.
 > İşe alım yapacak(işçi yaratacak) olan bu kişi fabrika metoduna sahip olacak olan nesnedir.
 
@@ -275,7 +280,7 @@ Basitçe :
 > 
 > Abstract Factory : Birbirleriye yakın ilşikisi olan nesneleri yaratım problemini bir araya toplar, birbirleriyle ilişkisi olmayan yapılar aynı abstract factory'ye koyulmamalıdır!!!
 > 
-> Abstract Factory : tekil(yani örneğimizdeki Analist) veya birliktelik ifade eden (Front End developer ve Back End developer) nesneleri yaratılacağı, hangi nesnenin yaratılacağını soyut sınıfın üstüne yükleyen tasarım kalıbına denir.
+> Abstract Factory : tekil(yani örneğimizdeki Analist) veya birliktelik ifade eden (Front End developer ve Back End developer) nesneleri yaratılma işlemini alt-class'lara yükler.
 
 **Yazılım Örneğin?**
 
@@ -323,7 +328,16 @@ public enum CalisanTipi
 
 Şimdi ise developer oluşturaca  soyut fabrikayı (abstract factory) yaratalım : 
 ```csharp
-class ConcreteDeveloperHireManager : AbstractDeveloperHireManager
+
+public abstract class AbstractDeveloperHireManager
+{
+    //Factory Method1
+    public abstract Calisan HireFrontEndDeveloper();
+    //Factory Method2
+    public abstract Calisan HireBackEndDeveloper();
+}
+
+public class ConcreteDeveloperHireManager : AbstractDeveloperHireManager
 {
     protected int DogruDeveloperCevap { get; } = 2;
     // Factory Method1
@@ -367,6 +381,13 @@ class ConcreteDeveloperHireManager : AbstractDeveloperHireManager
 Daha sonra analist yaratan soyut fabrikayı yaratalım : 
 
 ```csharp
+
+public abstract class AbstractAnalistHireManager
+{
+    //Factory Method
+    public abstract Calisan HireAnalist();
+}
+
 public class ConcreteAnalistHireManager : AbstractAnalistHireManager
 {
     public string DogruCevap { get;  } = "Problemi tespit etmek.";
@@ -430,114 +451,80 @@ public class SirketMuduru
 Abstract factory birbirlye ilşkili olan nesnelerin yaratımını kapsüller,böylece hem karmaşa önlenir hem de daha temiz bir kod yapısına geçilebilir.
 
 **Ne zaman kullanılmalı ?**
-İlişkili nesnelerin veya bir nesne ailesinin olduğu yerde abstract factory kullanılabilir.
+İlişkili nesnelerin veya bir nesne ailesinin olduğu yerde abstract factory kullanılabilir. Örneğimiz nesne ailesi developer'lardır.
 
 👷 Builder
 --------------------------------------------
-Real world example
-> Imagine you are at Hardee's and you order a specific deal, lets say, "Big Hardee" and they hand it over to you without *any questions*; this is the example of simple factory. But there are cases when the creation logic might involve more steps. For example you want a customized Subway deal, you have several options in how your burger is made e.g what bread do you want? what types of sauces would you like? What cheese would you want? etc. In such cases builder pattern comes to the rescue.
+Açıklama :
+> Builder pattern'inde aslında bir inaşa sürecinden bahsedilmektedir. Yani bir nesne yaratırken o nesnenin bir yaratım **süreci** vardır. Builder bir süreç içerisinde nesneye inşa eder(build eder).
 
-In plain words
-> Allows you to create different flavors of an object while avoiding constructor pollution. Useful when there could be several flavors of an object. Or when there are a lot of steps involved in creation of an object.
 
-Wikipedia says
-> The builder pattern is an object creation software design pattern with the intentions of finding a solution to the telescoping constructor anti-pattern.
+Gerçek Dünya Senaryosu:
+> Bir kahve yapacağımızı düşünlelim ihtiacımız olan kahve, su veya süttür.  Ama biz bu üçünün hepsiye ve sadece ikisiyle de kahve yapabiliriz. Ama bizim kahveyi yapmamız bir süreçtir ilk başta su ve/veya süt ısıtılacak ardından bardağa dökülecek ve su ve/veya süt üzerine kahve atılacak ve karıştırlıması gerekecektir. Bu sebeple kahve yapmak bir **süreç** gerektiren bir iştir.
 
-Having said that let me add a bit about what telescoping constructor anti-pattern is. At one point or the other we have all seen a constructor like below:
+Basitçe:
+> İnşa eden (Builder) tasarım kalıbı bir süreç ile inşa edilecek olan nesnenin *yaratılma sürecine* vurgu yapmaktadır. 
 
-```php
-public function __construct($size, $cheese = true, $pepperoni = true, $tomato = false, $lettuce = true)
+Aynı zamanda : 
+> (Telescoping constructor anti-pattern) Teleskop constructor anti pattern'inin üstesinden de gelmektedir. Çünkü az sonra göreceğimiz üzere nesne yaratım süreçi metotlar ile yapılmaktadır bu sebep ile constructor yerine anlamı smetot isimleri kullanarak daha açıklayıcı kod yazabiliriz.
+
+Yazılım Örneği : 
+
+Öncelikle bardak kahve class'ını oluşturalım :
+```csharp
+class BardakKahve
 {
+    public float SuMiktari { get; set; }
+    public decimal KahveGramaj { get; set; }
+    public float SütMiktari { get; set; }
 }
 ```
 
-As you can see; the number of constructor parameters can quickly get out of hand and it might become difficult to understand the arrangement of parameters. Plus this parameter list could keep on growing if you would want to add more options in future. This is called telescoping constructor anti-pattern.
-
-**Programmatic Example**
-
-The sane alternative is to use the builder pattern. First of all we have our burger that we want to make
-
-```php
-class Burger
+Şimdi ise builder yaratalım : 
+```csharp
+class KahveMakinesi
 {
-    protected $size;
+    private BardakKahve _kahve;
 
-    protected $cheese = false;
-    protected $pepperoni = false;
-    protected $lettuce = false;
-    protected $tomato = false;
+	public KahveMakinesi()
+    {
+        _kahve= new BardakKahve();
+    }
 
-    public function __construct(BurgerBuilder $builder)
-    {
-        $this->size = $builder->size;
-        $this->cheese = $builder->cheese;
-        $this->pepperoni = $builder->pepperoni;
-        $this->lettuce = $builder->lettuce;
-        $this->tomato = $builder->tomato;
-    }
+    public KahveMakinesi SuKoy(float SuMiktari)
+    {
+        _kahve.SuMiktari= SuMiktari;
+        return this;
+    }
+
+    public KahveMakinesi KahveKoy(decimal kahveMiktari)
+    {
+        _kahve.KahveGramaj= kahveMiktari;
+        return this;
+    }
+    
+    public KahveMakinesi SütKoy(float SütMiktari)
+    {
+        _kahve.SütMiktari= SütMiktari;
+        return this;
+    }
+
+    public BardakKahve Build()
+    {
+        return _kahve;
+    }
 }
+
 ```
 
-And then we have the builder
-
-```php
-class BurgerBuilder
-{
-    public $size;
-
-    public $cheese = false;
-    public $pepperoni = false;
-    public $lettuce = false;
-    public $tomato = false;
-
-    public function __construct(int $size)
-    {
-        $this->size = $size;
-    }
-
-    public function addPepperoni()
-    {
-        $this->pepperoni = true;
-        return $this;
-    }
-
-    public function addLettuce()
-    {
-        $this->lettuce = true;
-        return $this;
-    }
-
-    public function addCheese()
-    {
-        $this->cheese = true;
-        return $this;
-    }
-
-    public function addTomato()
-    {
-        $this->tomato = true;
-        return $this;
-    }
-
-    public function build(): Burger
-    {
-        return new Burger($this);
-    }
-}
-```
-And then it can be used as:
-
-```php
-$burger = (new BurgerBuilder(14))
-                    ->addPepperoni()
-                    ->addLettuce()
-                    ->addTomato()
-                    ->build();
+Kullanımı : 
+```csharp
+	KahveMakinesi makina = new KahveMakinesi();
+	var latte =  makina.SuKoy(90f).KahveKoy(10m).SütKoy(90f).Build();
 ```
 
-**When to use?**
-
-When there could be several flavors of an object and to avoid the constructor telescoping. The key difference from the factory pattern is that; factory pattern is to be used when the creation is a one step process while builder pattern is to be used when the creation is a multi step process.
+**Ne zaman kullanılmalı ?**
+Nesne yaratmanın bir süreç olduğu her yerde kullanılabilir. Aynı zamanda nesne yaratırken metot isimleri kullanıldığından nesneyi yaratma sürecini açık hala getirir(dışarıya expose eder).
 
 🐑 Prototype
 ------------
