@@ -453,7 +453,7 @@ Abstract factory birbirlye ilşkili olan nesnelerin yaratımını kapsüller,bö
 **Ne zaman kullanılmalı ?**
 İlişkili nesnelerin veya bir nesne ailesinin olduğu yerde abstract factory kullanılabilir. Örneğimiz nesne ailesi developer'lardır.
 
-👷 Builder
+👷 İnşa Edici (Builder)
 --------------------------------------------
 Açıklama :
 > Builder pattern'inde aslında bir inaşa sürecinden bahsedilmektedir. Yani bir nesne yaratırken o nesnenin bir yaratım **süreci** vardır. Builder bir süreç içerisinde nesneye inşa eder(build eder).
@@ -526,74 +526,95 @@ Kullanımı :
 **Ne zaman kullanılmalı ?**
 Nesne yaratmanın bir süreç olduğu her yerde kullanılabilir. Aynı zamanda nesne yaratırken metot isimleri kullanıldığından nesneyi yaratma sürecini açık hala getirir(dışarıya expose eder).
 
-🐑 Prototype
+🤖 Prototip (Prototype)
 ------------
-Real world example
-> Remember dolly? The sheep that was cloned! Lets not get into the details but the key point here is that it is all about cloning
+Gerçek dünya senaryosu : 
+> Yıl 3542 insanlar sonunda doğayla uyum içinde yaşamayı başarmız ve bitkisel insanlar dönüşmülerdi, bitkisel insanlar ataların yarattığı Dark Whether'a karşı savaşmakta ama sayıca yetersiz kalmaktadır. Bitkisel İnsanlar aralarınadaki en iyi savaşçının klonlamak istiyorlar. Bu yüzden ellerinde en iyi savaşçıyı prototip olarak kullanmak istiyecekler. 
+> *Prototip olarak kullandıkları savaşçıdan birebir aynı savaşçı klonlamak istiyecekler*.
 
-In plain words
-> Create object based on an existing object through cloning.
+Basitçe : 
+> Prototip tasarım kalıbı eldeki nesne ile benzer bir nesne yaratmak için kullanılır.
 
-Wikipedia says
-> The prototype pattern is a creational design pattern in software development. It is used when the type of objects to create is determined by a prototypical instance, which is cloned to produce new objects.
-
-In short, it allows you to create a copy of an existing object and modify it to your needs, instead of going through the trouble of creating an object from scratch and setting it up.
-
-**Programmatic Example**
-
-In PHP, it can be easily done using `clone`
-
-```php
-class Sheep
+```csharp
+public class SavasciPrototype
 {
-    protected $name;
-    protected $category;
+    internal int Can { get; set; }
+    internal int Zeka { get; set; }
+    internal int Guc { get; set; }
+    internal int FotosentezMiktari { get; set; }
+    public SavasciPrototype()
+    {
+    }
+    public static SavasciPrototype Initialize(int can, int zeka, int guc, int fotosentezMiktari)
+    {
+        var savasci = new SavasciPrototype();
+        savasci.Can = can;
+        savasci.Zeka= zeka;
+        savasci.Guc = guc;
+        savasci.FotosentezMiktari = fotosentezMiktari;
+        return savasci;
+    }
+    private static SavasciPrototype _bestWarrior = Initialize(int.MaxValue,int.MaxValue,int.MaxValue,int.MaxValue);
 
-    public function __construct(string $name, string $category = 'Mountain Sheep')
-    {
-        $this->name = $name;
-        $this->category = $category;
-    }
+	private static SavasciPrototype _normalWarrior = Initialize(int.MaxValue/2,int.MaxValue/2,int.MaxValue/2,int.MaxValue/2);
 
-    public function setName(string $name)
-    {
-        $this->name = $name;
-    }
+    private static SavasciPrototype _badWarrior = Initialize(int.MaxValue/4,int.MaxValue/4,int.MaxValue/4,int.MaxValue/4);
 
-    public function getName()
-    {
-        return $this->name;
-    }
+    public void OzellikYazdir(string cloneName)
+    {
+        System.Console.WriteLine(cloneName);
+        System.Console.WriteLine("{0} Guc : " + this.Guc, cloneName);
+        System.Console.WriteLine("{0} Can : " + this.Can, cloneName);
+        System.Console.WriteLine("{0} Zeka : " + this.Zeka, cloneName);
+        System.Console.WriteLine("{0} Zeka : " + this.FotosentezMiktari, cloneName);
+        System.Console.WriteLine("----------------------");
 
-    public function setCategory(string $category)
-    {
-        $this->category = $category;
-    }
+    }
+    private SavasciPrototype Clone()
+    {
+        return (SavasciPrototype) this.MemberwiseClone();
+    }
 
-    public function getCategory()
-    {
-        return $this->category;
-    }
+    public SavasciPrototype CloneBestWarrior()
+    {
+        return _bestWarrior.Clone();
+    }
+
+    public SavasciPrototype CloneNnormalWarrior()
+    {
+        return _normalWarrior.Clone();
+    }
+
+    public SavasciPrototype CloneBadWarrior()
+    {
+        return _badWarrior.Clone();
+    }
+
 }
+
 ```
-Then it can be cloned like below
-```php
-$original = new Sheep('Jolly');
-echo $original->getName(); // Jolly
-echo $original->getCategory(); // Mountain Sheep
+Kullanımı : 
+```csharp
 
-// Clone and modify what is required
-$cloned = clone $original;
-$cloned->setName('Dolly');
-echo $cloned->getName(); // Dolly
-echo $cloned->getCategory(); // Mountain sheep
+SavasciPrototype savasci = new SavasciPrototype();
+
+var clone1 = savasci.CloneBestWarrior();
+clone1.Can =0 ; // öldü
+clone1.OzellikYazdir("clone1");
+
+var clone2 = savasci.CloneBestWarrior();
+clone2.Guc = 0; // silahını düşürdü
+clone2.OzellikYazdir("clone2");
+
+var clone3 = savasci.CloneBestWarrior();
+clone3.FotosentezMiktari = 0; // gereksiz insan, carbon notr
+clone3.OzellikYazdir("clone3");
 ```
 
-Also you could use the magic method `__clone` to modify the cloning behavior.
 
-**When to use?**
+**Ne zaman kullanılmalı ?**
+Bir obje yaratmak istediğimizde eğer var olan genel(general) bir statü'den türetilmek istenirse, var olan bir objeyi klonlamak bizi ekstra efordan kurtatır. Aynı zamanda objeyi yaratmanın var olan obje klonlamak daha maliyetli olduğunda da prototip kalıbı kullanılabilir.
 
-When an object is required that is similar to existing object or when the creation would be expensive as compared to cloning.
 
 💍 Singleton
 ------------
