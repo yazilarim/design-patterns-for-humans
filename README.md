@@ -35,25 +35,25 @@ Tasarım kalıpları proje ekleyebileceğiniz belli bir class, namespace veya dl
 Tasarım kalıpları tipleri
 -----------------
 
-* [Yaratımsal Kalıplar](#creational-design-patterns)
+* [Yaratımsal Tasarım Kalıpları](#Yaratımsal-Tasarım-Kalıpları)
 * [Structural](#structural-design-patterns)
 * [Behavioral](#behavioral-design-patterns)
 
-Yaratımsal Tasarım Kalıpları
+#Yaratımsal-Tasarım-Kalıpları
 ==========================
 
 Yazıya dökersek :
 > Yaratımsal kalıplar bir objeninin nasıl örnekleneceği problemine veya bir grup nesnenin nasıl örneklenebileceği problemine çözüm sunar .
 
 
- * [Basit Fabrika (Simple Factory)](#-simple-factory)
- * [Fabrika Metodu (Factory Method)](#-factory-method)
+ * [Basit-Fabrika (Simple Factory)](#🏠Basit-Fabrika)
+ * [Fabrika Metodu (Factory Method)](#-Fabrika-Metodu)
  * [Soyut Fabrika (Abstract Factory)](#-abstract-factory)
  * [İnşa Edici (Builder)](#-builder)
  * [Prototip (Prototype)](#-prototype)
  * [Singleton](#-singleton)
 
-🏠 Basit Fabrika (Simple Factory)
+#🏠Basit-Fabrika
 --------------
 Gerçek dünya senaryosu
 > Varsayılımki, bir ev inşa ediyorsunuz ve ev inşa etmek için kapılara ihtiyacınız var. Bunun için ihtiyacınız olan şeyler ise : biraz tahta, yapıştırıcı ve çivi (ve kapı yapmak için gereken diğer araçlar). Kapıyı gerekli eşyaları kullanarak daha sonra yapabilirsiniz **ama** kapıyı kendiniz yapmak yerine bir basit bir fabrikadan yani bir marangozhaneden isteyebilirsiniz. Marangozhaneden istediğiniz zaman eviniz içerisindeki yapacağınız bir sürü kir ve işten kutulmuş olursunuz. 
