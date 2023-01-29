@@ -46,14 +46,14 @@ Yazıya dökersek :
 > Yaratımsal kalıplar bir objeninin nasıl örnekleneceği problemine veya bir grup nesnenin nasıl örneklenebileceği problemine çözüm sunar .
 
 
- * [Basit-Fabrika (Simple Factory)](#🏠Basit-Fabrika)
+ * [Basit-Fabrika (Simple Factory)](#Basit-Fabrika)
  * [Fabrika Metodu (Factory Method)](#-Fabrika-Metodu)
  * [Soyut Fabrika (Abstract Factory)](#-abstract-factory)
  * [İnşa Edici (Builder)](#-builder)
  * [Prototip (Prototype)](#-prototype)
  * [Singleton](#-singleton)
 
-#🏠Basit-Fabrika
+🏠 #Basit-Fabrika
 --------------
 Gerçek dünya senaryosu
 > Varsayılımki, bir ev inşa ediyorsunuz ve ev inşa etmek için kapılara ihtiyacınız var. Bunun için ihtiyacınız olan şeyler ise : biraz tahta, yapıştırıcı ve çivi (ve kapı yapmak için gereken diğer araçlar). Kapıyı gerekli eşyaları kullanarak daha sonra yapabilirsiniz **ama** kapıyı kendiniz yapmak yerine bir basit bir fabrikadan yani bir marangozhaneden isteyebilirsiniz. Marangozhaneden istediğiniz zaman eviniz içerisindeki yapacağınız bir sürü kir ve işten kutulmuş olursunuz. 
