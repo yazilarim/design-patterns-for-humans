@@ -30,7 +30,7 @@ Tasarım kalıpları proje ekleyebileceğiniz belli bir class, namespace veya dl
 - Tasarım kalıpları problemler için çözüm yolu sağlar, tasarım kalıplarını uygulayacağım diye problem yaratmayın.
 - Tasarım kalıpları doğru *durumda* doğru probleme uygulanırsa mükemmel çözümlerdir, ama eğer yanlış durum ya da yanlış probleme uygulanırsa kötü kod kokusun kaynağı olabilirler! 
 
-> Aşağıda kodlar c#ile yazılmıştır ama asla kendi yazılım kabilenizin diline uygulamaktan kaçınmayın.
+> Aşağıda kodlar c# ile yazılmıştır ama asla kendi yazılım kabilenizin diline uygulamaktan kaçınmayın.
 
 Tasarım kalıpları tipleri
 -----------------
@@ -43,7 +43,7 @@ Yaratımsal Tasarım Kalıpları
 ==========================
 
 Yazıya dökersek :
-> Yaratımsal kalıplar bir objeninin nasıl örnekleneceği problemine veya bir grup nesneinin nasıl örneklenebileceği problemine çözüm sunar .
+> Yaratımsal kalıplar bir objeninin nasıl örnekleneceği problemine veya bir grup nesnenin nasıl örneklenebileceği problemine çözüm sunar .
 
 
  * [Basit Fabrika (Simple Factory)](#-simple-factory)
@@ -182,7 +182,7 @@ Gerçek dünya senaryosu 2 :
 
 Kod'un mantığı
 > - Factory Method'da hangi nesnenin yarataılacağına karar veren  "Genel Mudur"dür çünkü işe alımdan sorumlu tutacağı kişinin bilgisi ve **işe alınacak pozisyonun** bilgisi tutar.
->  - GenelMüdürün bilmesi gereken tek şey işe alım yapacağı pozisyon ve işe alım yapacak kişinin bilgisidir. Bu bilgilere göre işçi alacaktır(yaratacaktır).
+> - GenelMüdürün bilmesi gereken tek şey işe alım yapacağı pozisyon ve işe alım yapacak kişinin bilgisidir. Bu bilgilere göre işçi alacaktır(yaratacaktır).
 > Pozison bazında işe alınacak kişinin seçildiği(yaratıldığı) metoda FactoryMetodu denir.
 > 
 > Örneğimizde işe alma sorumluluğu olan, soyut sınıf olan ,HireManager'ın abstract olarak işaretlenen factory metodunun, alt sınıflarda(derived/child sınıflarda) spesifik bir pozisyondan işe alınacak olan çalışan örneklenmesini sağlayan metoda fabrika metodur denir.
@@ -261,7 +261,7 @@ mudur.IseAlimYap(CalisanTipi.Analist);
 
 **Ne zaman kullanılmalı ?**
 Eğer calisma zamanında (runtime'da) client hangi sınıfı yaratmak isteyeceğini bilmiyorsa fabrika metotları yararlı olabilir.
-Aynı zamanda nesne yaratmayı client aldığından client kodunda sadeleşmede de sağladığında temiz kod (clean code) yazılmasına yardımcı olur.
+Aynı zamanda nesne yaratmayı client'tan alıp factory method'a yüklendiğinden, client kodunda sadeleşmede de sağlar, temiz kod (clean code) yazılmasına yardımcı olur.
 
 
 
@@ -295,7 +295,7 @@ public class FrontEndDeveloper : Calisan
 {
     public void DoSomeWork()
     {
-        System.Console.WriteLine("Kodlar yazılıyor");
+        System.Console.WriteLine("Ui yazılıyor");
     }
 }
 
@@ -303,7 +303,7 @@ public class BackEndDeveloper : Calisan
 {
     public void DoSomeWork()
     {
-        System.Console.WriteLine("Kodlar yazılıyor");
+        System.Console.WriteLine("API yazılıyor");
     }
 }
 
@@ -326,7 +326,7 @@ public enum CalisanTipi
 }
 ```
 
-Şimdi ise developer oluşturaca  soyut fabrikayı (abstract factory) yaratalım : 
+Şimdi ise developer oluşturacaK  soyut fabrikayı (abstract factory) yaratalım : 
 ```csharp
 
 public abstract class AbstractDeveloperHireManager
