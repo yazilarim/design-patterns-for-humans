@@ -47,10 +47,10 @@ Yazıya dökersek :
 
 
  * [Basit Fabrika (Simple Factory)](#-simple-factory)
- * [Factory Method](#-factory-method)
- * [Abstract Factory](#-abstract-factory)
- * [Builder](#-builder)
- * [Prototype](#-prototype)
+ * [Fabrika Metodu (Factory Method)](#-factory-method)
+ * [Soyut Fabrika (Abstract Factory)](#-abstract-factory)
+ * [İnşa Edici (Builder)](#-builder)
+ * [Prototip (Prototype)](#-prototype)
  * [Singleton](#-singleton)
 
 🏠 Basit Fabrika (Simple Factory)
