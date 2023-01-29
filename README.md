@@ -46,11 +46,11 @@ Yazıya dökersek :
 > Yaratımsal kalıplar bir objeninin nasıl örnekleneceği problemine veya bir grup nesnenin nasıl örneklenebileceği problemine çözüm sunar .
 
 
- * [Basit-Fabrika (Simple Factory)](#-basit-fabrika-simple-factory)
- * [Fabrika Metodu (Factory Method)](#-fabrika-metodufactory-method)
+ * [Basit-Fabrika (Simple Factory)](#-basit-fabrikasimple-factory)
+ * [Fabrika Metodu (Factory Method)](#-fabrika-metodu-factory-method)
  * [Soyut Fabrika (Abstract Factory)](#-soyut-fabrika-abstract-factory)
- * [İnşa Edici (Builder)](#-inşa-edicibuilder)
- * [Prototip (Prototype)](#-prototipprototype)
+ * [İnşa Edici (Builder)](#-i̇nşa-edici-builder)
+ * [Prototip (Prototype)](#-prototip-prototype)
  * [Singleton](#-singleton)
 
 🏠 #Basit-Fabrika(Simple Factory)
