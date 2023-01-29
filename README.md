@@ -47,13 +47,13 @@ Yazıya dökersek :
 
 
  * [Basit-Fabrika (Simple Factory)](#-basit-fabrika)
- * [Fabrika Metodu (Factory Method)](#-Fabrika-Metodu)
- * [Soyut Fabrika (Abstract Factory)](#-abstract-factory)
- * [İnşa Edici (Builder)](#-builder)
- * [Prototip (Prototype)](#-prototype)
+ * [Fabrika Metodu (Factory Method)](#-fabrika-metodu)
+ * [Soyut Fabrika (Abstract Factory)](#-soyut-fabrika)
+ * [İnşa Edici (Builder)](#-inşa-edici)
+ * [Prototip (Prototype)](#-prototip)
  * [Singleton](#-singleton)
 
-🏠 #Basit-Fabrika
+🏠 #Basit-Fabrika(Simple Factory)
 --------------
 Gerçek dünya senaryosu
 > Varsayılımki, bir ev inşa ediyorsunuz ve ev inşa etmek için kapılara ihtiyacınız var. Bunun için ihtiyacınız olan şeyler ise : biraz tahta, yapıştırıcı ve çivi (ve kapı yapmak için gereken diğer araçlar). Kapıyı gerekli eşyaları kullanarak daha sonra yapabilirsiniz **ama** kapıyı kendiniz yapmak yerine bir basit bir fabrikadan yani bir marangozhaneden isteyebilirsiniz. Marangozhaneden istediğiniz zaman eviniz içerisindeki yapacağınız bir sürü kir ve işten kutulmuş olursunuz. 
@@ -114,7 +114,7 @@ var door = DoorFactory.MakeDoor(75f,200f);
 Obje yaratırken bir çok parametremiz olduğunda, ve iş mantığı(bussiness logic) karmaşıklaştığı zaman; nesne yaratma işlemini bir fabrikaya koymak, kod tekrarını önlemek için çok yararlı olacaktır.
 
 
-🏭Fabrika Metodu (Factory Method)
+🏭 #Fabrika-Metodu (Factory Method)
 --------------
 Gerçek dünyası senaryosu 1 : 
 
@@ -265,7 +265,7 @@ Aynı zamanda nesne yaratmayı client'tan alıp factory method'a yüklendiğinde
 
 
 
-🔨 Soyut Fabrika (Abstract Factory)
+🔨 #Soyut-Fabrika (Abstract Factory)
 ----------------
 
 
@@ -453,7 +453,7 @@ Abstract factory birbirlye ilşkili olan nesnelerin yaratımını kapsüller,bö
 **Ne zaman kullanılmalı ?**
 İlişkili nesnelerin veya bir nesne ailesinin olduğu yerde abstract factory kullanılabilir. Örneğimiz nesne ailesi developer'lardır.
 
-👷 İnşa Edici (Builder)
+👷 #İnşa-Edici (Builder)
 --------------------------------------------
 Açıklama :
 > Builder pattern'inde aslında bir inaşa sürecinden bahsedilmektedir. Yani bir nesne yaratırken o nesnenin bir yaratım **süreci** vardır. Builder bir süreç içerisinde nesneye inşa eder(build eder).
@@ -526,7 +526,7 @@ Kullanımı :
 **Ne zaman kullanılmalı ?**
 Nesne yaratmanın bir süreç olduğu her yerde kullanılabilir. Aynı zamanda nesne yaratırken metot isimleri kullanıldığından nesneyi yaratma sürecini açık hala getirir(dışarıya expose eder).
 
-🤖 Prototip (Prototype)
+🤖 #prototip (Prototype)
 ------------
 Gerçek dünya senaryosu : 
 > Yıl 3542 insanlar sonunda doğayla uyum içinde yaşamayı başarmız ve bitkisel insanlar dönüşmülerdi, bitkisel insanlar ataların yarattığı Dark Whether'a karşı savaşmakta ama sayıca yetersiz kalmaktadır. Bitkisel İnsanlar aralarınadaki en iyi savaşçının klonlamak istiyorlar. Bu yüzden ellerinde en iyi savaşçıyı prototip olarak kullanmak istiyecekler. 
