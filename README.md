@@ -51,7 +51,7 @@ Yazıya dökersek :
  * [Soyut Fabrika (Abstract Factory)](#-soyut-fabrika-abstract-factory)
  * [İnşa Edici (Builder)](#-i̇nşa-edici-builder)
  * [Prototip (Prototype)](#-prototip-prototype)
- * [Singleton](#-singleton)
+ * [Singleton](#-tekil-singleton)
 
 🏠 #Basit-Fabrika(Simple Factory)
 --------------
