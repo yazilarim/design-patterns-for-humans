@@ -622,17 +622,17 @@ Gerçek Dünya Senaryosu :
 >  Dünya üzerinde süperman'den sadece ama sadece bir tane var. Süperman burada tekil'dir.
 
 Basitçe : 
-> Tekil(singleton) tasarım kalıbı bir nesnenin sadece ama sadece tek bir öenğinin olabileceği söyleyen nesnedir.
+> Tekil(singleton) tasarım kalıbı bir nesnenin sadece ama sadece tek bir örneğinin olabileceği söyleyen nesnedir.
 
 Dikkat :
 > Tekil tasarım kalıbı genel olarak anti-pattern olarak anılır. Olabildiğince kullanımından kaçınılması gerekmektedir, bunun sebebi uygulamanın(application'ının) her yerinde tanımlıdır ve bu tekil nesnenin değişimi uygulamanın her yerini etkileyecektir.  Aynı zamanda global olarak ulaşılabilen nesneler debug edilmesi zordur. 
-> Tekil tasarım kalıbının bir diğer dezantajlarından uygulamadaki diğer kod boklarının tekil(singleton) yapıya sıkı bağımlılık içermesi olabilir. 
+> Tekil (Singleton) tasarım kalıbının bir diğer dezantajlarından *uygulamadaki diğer kod boklarının* tekil(singleton) yapıya sıkı bağımlılık içermesi olabilir. 
 >  Tekil tasarım kalıbının bir diğer dezavantajlarından biri ise kod taklit etme(mocking) işleminin zorlu olmasıdır.
 
 **Yazılım Örneği :** 
 
 Öncelikle süperman sınıfımızı yaratalım :
-> Not : Multihread(çok kanallı) kullanımında aşağıdaki kod bloğu istendiği gibi çalışmayabilir. Bu sebep ile burayı anladıktan sonra gerçek dünyada aşağıdaki gibi non-safe(güvenli olmayan) kod kullanmayınız!!
+> Not : Multihread(çok kanallı) kullanımında aşağıdaki kod bloğu istendiği gibi çalışmayabilir. Bu sebep ile burayı anladıktan sonra ikinci Superman class'ı örneğinin geçrek dünya kullanımını daha uygun olacaktır!!
 
 ```csharp
 
