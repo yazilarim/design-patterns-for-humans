@@ -456,7 +456,7 @@ Abstract factory birbirlye ilşkili olan nesnelerin yaratımını kapsüller,bö
 👷 #İnşa-Edici (Builder)
 --------------------------------------------
 Açıklama :
-> Builder pattern'inde aslında bir inaşa sürecinden bahsedilmektedir. Yani bir nesne yaratırken o nesnenin bir yaratım **süreci** vardır. Builder bir süreç içerisinde nesneye inşa eder(build eder).
+> Builder pattern'inde aslında bir inşa sürecinden bahsedilmektedir. Yani bir nesne yaratırken o nesnenin bir yaratım **süreci** vardır. Builder bir süreç içerisinde nesneye inşa eder(build eder).
 
 
 Gerçek Dünya Senaryosu:
@@ -466,7 +466,7 @@ Basitçe:
 > İnşa eden (Builder) tasarım kalıbı bir süreç ile inşa edilecek olan nesnenin *yaratılma sürecine* vurgu yapmaktadır. 
 
 Aynı zamanda : 
-> (Telescoping constructor anti-pattern) Teleskop constructor anti pattern'inin üstesinden de gelmektedir. Çünkü az sonra göreceğimiz üzere nesne yaratım süreçi metotlar ile yapılmaktadır bu sebep ile constructor yerine anlamı smetot isimleri kullanarak daha açıklayıcı kod yazabiliriz.
+> (Telescoping constructor anti-pattern) Teleskop constructor anti pattern'inin üstesinden de gelmektedir. Çünkü az sonra göreceğimiz üzere nesne yaratım süreçi metotlar ile yapılmaktadır, bu sebep ile constructor yerine anlamı metot isimleri kullanarak daha açıklayıcı kod yazabiliriz.
 
 Yazılım Örneği : 
 
@@ -616,59 +616,96 @@ clone3.OzellikYazdir("clone3");
 Bir obje yaratmak istediğimizde eğer var olan genel(general) bir statü'den türetilmek istenirse, var olan bir objeyi klonlamak bizi ekstra efordan kurtatır. Aynı zamanda objeyi yaratmanın var olan obje klonlamak daha maliyetli olduğunda da prototip kalıbı kullanılabilir.
 
 
-💍 Singleton
+💍 Tekil (Singleton)
 ------------
-Real world example
-> There can only be one president of a country at a time. The same president has to be brought to action, whenever duty calls. President here is singleton.
+Gerçek Dünya Senaryosu : 
+>  Dünya üzerinde süperman'den sadece ama sadece bir tane var. Süperman burada tekil'dir.
 
-In plain words
-> Ensures that only one object of a particular class is ever created.
+Basitçe : 
+> Tekil(singleton) tasarım kalıbı bir nesnenin sadece ama sadece tek bir öenğinin olabileceği söyleyen nesnedir.
 
-Wikipedia says
-> In software engineering, the singleton pattern is a software design pattern that restricts the instantiation of a class to one object. This is useful when exactly one object is needed to coordinate actions across the system.
+Dikkat :
+> Tekil tasarım kalıbı genel olarak anti-pattern olarak anılır. Olabildiğince kullanımından kaçınılması gerekmektedir, bunun sebebi uygulamanın(application'ının) her yerinde tanımlıdır ve bu tekil nesnenin değişimi uygulamanın her yerini etkileyecektir.  Aynı zamanda global olarak ulaşılabilen nesneler debug edilmesi zordur. 
+> Tekil tasarım kalıbının bir diğer dezantajlarından uygulamadaki diğer kod boklarının tekil(singleton) yapıya sıkı bağımlılık içermesi olabilir. 
+>  Tekil tasarım kalıbının bir diğer dezavantajlarından biri ise kod taklit etme(mocking) işleminin zorlu olmasıdır.
 
-Singleton pattern is actually considered an anti-pattern and overuse of it should be avoided. It is not necessarily bad and could have some valid use-cases but should be used with caution because it introduces a global state in your application and change to it in one place could affect in the other areas and it could become pretty difficult to debug. The other bad thing about them is it makes your code tightly coupled plus mocking the singleton could be difficult.
+**Yazılım Örneği :** 
 
-**Programmatic Example**
+Öncelikle süperman sınıfımızı yaratalım :
+> Not : Multihread(çok kanallı) kullanımında aşağıdaki kod bloğu istendiği gibi çalışmayabilir. Bu sebep ile burayı anladıktan sonra gerçek dünyada aşağıdaki gibi non-safe(güvenli olmayan) kod kullanmayınız!!
 
-To create a singleton, make the constructor private, disable cloning, disable extension and create a static variable to house the instance
-```php
-final class President
+```csharp
+
+public class Superman
 {
-    private static $instance;
+    private static Superman _superman;
+    private static string _name;
 
-    private function __construct()
-    {
-        // Hide the constructor
-    }
-
-    public static function getInstance(): President
-    {
-        if (!self::$instance) {
-            self::$instance = new self();
-        }
-
-        return self::$instance;
-    }
-
-    private function __clone()
-    {
-        // Disable cloning
-    }
-
-    private function __wakeup()
-    {
-        // Disable unserialize
-    }
+    private Superman(string name)
+    {
+        _name = name;
+    }
+    public static Superman GetInstance()
+    {
+       
+		if (_superman == null)
+		{
+			_superman = new Superman("Clark Kent");
+		}
+        return _superman;
+    }
+    public void PrintSupermanName()
+    {
+        Console.WriteLine(_name);
+    }
 }
 ```
-Then in order to use
-```php
-$president1 = President::getInstance();
-$president2 = President::getInstance();
 
-var_dump($president1 === $president2); // true
+Client Kodu aşağıdadır : 
+```csharp
+var superman =Superman.GetInstance();
+superman.PrintSupermanName();
 ```
+
+*Superman sınıfını multithread safe (çok kanallı yapı için güvenli) hale  getirelim, * **client kodu hala yukarıdaki gibidir.** 
+
+```csharp
+
+public class Superman
+{
+    private static Superman _superman;
+    private static string _name;
+
+    private static readonly object dummy = new Object(); // dummy lock object eklendi.
+    
+    private Superman(string name)
+    {
+        _name = name;
+    }
+    public static Superman GetInstance()
+    {
+	    // double null checking ve lock eklendi
+        if (_superman == null)
+        {
+            lock (dummy)
+            {
+                if (_superman == null)
+                {
+                    _superman = new Superman("Clark Kent");
+                }
+            }
+        }
+        return _superman;
+    }
+    public void PrintSupermanName()
+    {
+        Console.WriteLine(_name);
+    }
+}
+```
+
+**Ne zaman kullanılır** ?
+Tekil tasarım kalıbı yani singleton bir nesnenin uygulama hayatı boyunca yalnız ve yalnız bir tane örneği(instance) olmasını istediğimiz zaman kullanırız. Ama kullanımından kaçınılması gereken bir tasarım kalıbıdır.
 
 Structural Design Patterns
 ==========================
