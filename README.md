@@ -121,7 +121,7 @@ Gerçek dünyası senaryosu 1 :
 > Bir genel müdürün Developer işe alacağını düşünelim. Genel müdür developer işe alacak yani programlama açısından yaratacaktır. Porgramatik açıdan ile genel müdür, developer yaratacak olan fabrika metodunu sahibi olacaktır. 
 
 Kod'un mantığı :
-> Genel Müdür factory method'u üzüzerinde tutar.
+> Genel Müdür factory method'u üzerinde tutar.
 > İşe alım yapacak(developer yaratacak) olan bu *kişi*(Genel Müdür) fabrika metoduna sahip olacak olan nesnedir. İşe alım yapacak olan kişi "Genel Müdür"dür. 
 > Bu yüzden "Genel Müdür" fabrika metodunu kendi üstünde tutar.
 
