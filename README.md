@@ -529,7 +529,7 @@ Nesne yaratmanın bir süreç olduğu her yerde kullanılabilir. Aynı zamanda n
 🤖 #prototip (Prototype)
 ------------
 Gerçek dünya senaryosu : 
-> Yıl 3542 insanlar sonunda doğayla uyum içinde yaşamayı başarmız ve bitkisel insanlar dönüşmülerdi, bitkisel insanlar ataların yarattığı Dark Whether'a karşı savaşmakta ama sayıca yetersiz kalmaktadır. Bitkisel İnsanlar aralarınadaki en iyi savaşçının klonlamak istiyorlar. Bu yüzden ellerinde en iyi savaşçıyı prototip olarak kullanmak istiyecekler. 
+> Yıl 3542 insanlar sonunda doğayla uyum içinde yaşamayı başarmış ve bitkisel insanlar dönüşmülerdi, bitkisel insanlar ataların yarattığı Dark Whether'a karşı savaşmakta ama sayıca yetersiz kalmaktadır. Bitkisel İnsanlar aralarınadaki en iyi savaşçının klonlamak istiyorlar. Bu yüzden ellerinde en iyi savaşçıyı prototip olarak kullanmak istiyecekler. 
 > *Prototip olarak kullandıkları savaşçıdan birebir aynı savaşçı klonlamak istiyecekler*.
 
 Basitçe : 
