@@ -486,7 +486,7 @@ class KahveMakinesi
 {
     private BardakKahve _kahve;
 
-	public KahveMakinesi()
+    public KahveMakinesi()
     {
         _kahve= new BardakKahve();
     }
