@@ -712,7 +712,7 @@ Yapısal Tasarım Kalıpları
 Basitçe : 
 > Yapısal Tasarım Kalıpları yazılım bileşenleri bir araya gelerek daha kompleks bileşenleri oluşturmak için kullanlır.
 
- * [Adapter](#adaptöradapter)
+ * [Adaptör](#adaptöradapter)
  * [Bridge](#-bridge)
  * [Composite](#-composite)
  * [Decorator](#-decorator)
