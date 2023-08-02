@@ -723,92 +723,80 @@ Wikipedia says
  * [Flyweight](#-flyweight)
  * [Proxy](#-proxy)
 
-🔌 Adapter
+🔌Adaptör(Adapter)
 -------
-Real world example
-> Consider that you have some pictures in your memory card and you need to transfer them to your computer. In order to transfer them you need some kind of adapter that is compatible with your computer ports so that you can attach memory card to your computer. In this case card reader is an adapter.
-> Another example would be the famous power adapter; a three legged plug can't be connected to a two pronged outlet, it needs to use a power adapter that makes it compatible with the two pronged outlet.
-> Yet another example would be a translator translating words spoken by one person to another
 
-In plain words
-> Adapter pattern lets you wrap an otherwise incompatible object in an adapter to make it compatible with another class.
+Gerçek dünya senaryosu :
+> Diyelimki bir tane tablet şarj cihazınız var ve şarj yeri Çin'deki prizlere uygun olsun ama biz Türkiye'de yaşadığımızdan Çin tipi şarj cihazının uyum sağlayacağı bir prizimiz yok bunun için priz dönüştürüceye ihtiyacımız bu priz dönüştürücü bizim adaptörümüzdür.
 
-Wikipedia says
-> In software engineering, the adapter pattern is a software design pattern that allows the interface of an existing class to be used as another interface. It is often used to make existing classes work with others without modifying their source code.
+Basitçe :
+> Adaptör tasarım kalıbı : Birbirleriyle uyumsuz yapıları beraber kullanmamıza olanak sağlar.
 
-**Programmatic Example**
+Yazılım Örneğin
+> Diyelimki bir prizimiz var Tükiyede normal bir şekilde kullanılan bir priz yuvarlak demir uç girişine uyumlu olanlardan. Biz buna çin tipi girişe sahip bir şarj cihazı takamayız bu sebeple araya bir SarjCihaziAdaptor koymamız gerekiyor.
 
-Consider a game where there is a hunter and he hunts lions.
-
-First we have an interface `Lion` that all types of lions have to implement
-
-```php
-interface Lion
+```csharp
+public class Program
 {
-    public function roar();
+	public static void Main()
+	{
+			var priz = new Priz();
+			var cinTipiSarj = new CinSarjCihaz();
+			var adaptor = new SarjCihaziAdaptor(cinTipiSarj);
+			priz.ElektrikIlet(adaptor);
+		
+	}
 }
 
-class AfricanLion implements Lion
+public interface CinTipiSarj 
 {
-    public function roar()
-    {
-    }
+	void SarjEt();
 }
 
-class AsianLion implements Lion
+public interface Sarj 
 {
-    public function roar()
-    {
-    }
-}
-```
-And hunter expects any implementation of `Lion` interface to hunt.
-```php
-class Hunter
-{
-    public function hunt(Lion $lion)
-    {
-        $lion->roar();
-    }
-}
-```
-
-Now let's say we have to add a `WildDog` in our game so that hunter can hunt that also. But we can't do that directly because dog has a different interface. To make it compatible for our hunter, we will have to create an adapter that is compatible
-
-```php
-// This needs to be added to the game
-class WildDog
-{
-    public function bark()
-    {
-    }
+	 void SarjEt();
 }
 
-// Adapter around wild dog to make it compatible with our game
-class WildDogAdapter implements Lion
+public class SarjCihazi : Sarj 
 {
-    protected $dog;
+	public void SarjEt() 
+	{
+		Console.WriteLine("Şarj Oluyor");
+	}
+}
 
-    public function __construct(WildDog $dog)
-    {
-        $this->dog = $dog;
-    }
+public class CinSarjCihaz : CinTipiSarj 
+{
+	public void SarjEt()
+	{
+		Console.WriteLine("Çin tipi Şarj Oluyor");
+	}
+}
 
-    public function roar()
-    {
-        $this->dog->bark();
-    }
+public class Priz
+{
+	public void ElektrikIlet(Sarj sarj) 
+	{
+		sarj.SarjEt();
+	}
+}
+
+class SarjCihaziAdaptor : Sarj
+{
+	private readonly CinTipiSarj _cinSarjCihazi;
+	public SarjCihaziAdaptor(CinTipiSarj cinSarjCihazi)
+	{
+		_cinSarjCihazi = cinSarjCihazi;
+	}
+	public void SarjEt()
+	{
+		_cinSarjCihazi.SarjEt();
+	}
 }
 ```
-And now the `WildDog` can be used in our game using `WildDogAdapter`.
 
-```php
-$wildDog = new WildDog();
-$wildDogAdapter = new WildDogAdapter($wildDog);
 
-$hunter = new Hunter();
-$hunter->hunt($wildDogAdapter);
-```
 
 🚡 Bridge
 ------
