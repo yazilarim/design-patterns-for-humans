@@ -707,13 +707,10 @@ public class Superman
 **Ne zaman kullanılır** ?
 Tekil tasarım kalıbı yani singleton bir nesnenin uygulama hayatı boyunca yalnız ve yalnız bir tane örneği(instance) olmasını istediğimiz zaman kullanırız. Ama kullanımından kaçınılması gereken bir tasarım kalıbıdır.
 
-Structural Design Patterns
+Yapısal Tasarım Kalıpları
 ==========================
-In plain words
-> Structural patterns are mostly concerned with object composition or in other words how the entities can use each other. Or yet another explanation would be, they help in answering "How to build a software component?"
-
-Wikipedia says
-> In software engineering, structural design patterns are design patterns that ease the design by identifying a simple way to realize relationships between entities.
+Basitçe : 
+> Yapısal Tasarım Kalıpları yazılım bileşenleri bir araya gelerek daha kompleks bileşenleri oluşturmak için kullanlır.
 
  * [Adapter](#-adapter)
  * [Bridge](#-bridge)
