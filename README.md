@@ -740,11 +740,10 @@ public class Program
 {
 	public static void Main()
 	{
-			var priz = new Priz();
-			var cinTipiSarj = new CinSarjCihaz();
-			var adaptor = new SarjCihaziAdaptor(cinTipiSarj);
-			priz.ElektrikIlet(adaptor);
-		
+		var priz = new Priz();
+		var cinTipiSarj = new CinSarjCihaz();
+		var adaptor = new SarjCihaziAdaptor(cinTipiSarj);
+		priz.ElektrikIlet(adaptor);
 	}
 }
 
