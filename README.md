@@ -724,7 +724,7 @@ Basitçe :
 -------
 
 Gerçek dünya senaryosu :
-> Diyelimki bir tane tablet şarj cihazınız var ve şarj yeri Çin'deki prizlere uygun olsun ama biz Türkiye'de yaşadığımızdan Çin tipi şarj cihazının uyum sağlayacağı bir prizimiz yok bunun için priz dönüştürüceye ihtiyacımız bu priz dönüştürücü bizim adaptörümüzdür.
+> Diyelimki bir tane tablet şarj cihazınız var ve şarj yeri Çin'deki prizlere uygun olsun ama biz Türkiye'de yaşadığımızdan Çin tipi şarj cihazının uyum sağlayacağı bir prizimiz yok bunun için priz dönüştürüceye ihtiyacımız var, bu priz dönüştürücü bizim adaptörümüzdür.
 
 Basitçe :
 > Adaptör tasarım kalıbı : Birbirleriyle uyumsuz yapıları beraber kullanmamıza olanak sağlar.
