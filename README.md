@@ -746,17 +746,17 @@ public class Program
 	}
 }
 
-public interface CinTipiSarj 
+public interface ICinTipiSarj 
 {
 	void SarjEt();
 }
 
-public interface Sarj 
+public interface ISarj 
 {
 	 void SarjEt();
 }
 
-public class SarjCihazi : Sarj 
+public class SarjCihazi : ISarj 
 {
 	public void SarjEt() 
 	{
@@ -764,7 +764,7 @@ public class SarjCihazi : Sarj
 	}
 }
 
-public class CinSarjCihaz : CinTipiSarj 
+public class CinSarjCihaz : ICinTipiSarj 
 {
 	public void SarjEt()
 	{
@@ -774,16 +774,16 @@ public class CinSarjCihaz : CinTipiSarj
 
 public class Priz
 {
-	public void ElektrikIlet(Sarj sarj) 
+	public void ElektrikIlet(ISarj sarj) 
 	{
 		sarj.SarjEt();
 	}
 }
 
-class SarjCihaziAdaptor : Sarj
+class SarjCihaziAdaptor : ISarj
 {
-	private readonly CinTipiSarj _cinSarjCihazi;
-	public SarjCihaziAdaptor(CinTipiSarj cinSarjCihazi)
+	private readonly ICinTipiSarj _cinSarjCihazi;
+	public SarjCihaziAdaptor(ICinTipiSarj cinSarjCihazi)
 	{
 		_cinSarjCihazi = cinSarjCihazi;
 	}
