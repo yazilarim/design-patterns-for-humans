@@ -799,96 +799,174 @@ class SarjCihaziAdaptor : ISarj
 🚡 Bridge
 ------
 Real world example
-> Consider you have a website with different pages and you are supposed to allow the user to change the theme. What would you do? Create multiple copies of each of the pages for each of the themes or would you just create separate theme and load them based on the user's preferences? Bridge pattern allows you to do the second i.e.
 
-![With and without the bridge pattern](https://cloud.githubusercontent.com/assets/11269635/23065293/33b7aea0-f515-11e6-983f-98823c9845ee.png)
+> Varsayılım ki iki çeşit giysimiz olsun t-shirt ve pantalon. Giysilerin iki farklı renk sahip olması durumunda 2 farklı varyanta sahip olan t-shirt ve pantalon olması bekleriz aşağıdaki gibi : 
 
-In Plain Words
-> Bridge pattern is about preferring composition over inheritance. Implementation details are pushed from a hierarchy to another object with a separate hierarchy.
 
-Wikipedia says
-> The bridge pattern is a design pattern used in software engineering that is meant to "decouple an abstraction from its implementation so that the two can vary independently"
+![image](https://github.com/user-attachments/assets/1219d85a-188f-425c-8518-d295fb1c74c5)
 
-**Programmatic Example**
+(Figure Bridge 1)
 
-Translating our WebPage example from above. Here we have the `WebPage` hierarchy
+Yukarıdaki gibi gereksiz nesne yaratma karmaşasından kurtulmak için T-Shirt ve Pantalon nesneleri sadece içerisine bir özellik olarak alabileceği Kırmızı ve Beyaz nesne tipleri yaratılır, yani bridge tasarım kalıbından yararlanırsak aşağıdaki halde nesnelerimiz olur : 
 
-```php
-interface WebPage
+![image](https://github.com/user-attachments/assets/0cc1bada-b8fb-4dcc-90db-bb83b81298ab)
+
+(Figure Bridge 2)
+
+Bridge tasarım kalıbının mottosu "composition over inheritance"dır. Anlamı ise Giyi nesnelerinin içerisine Renk nesnesi alır ve istediğimiz özelliği Giyim nesnelerine bu şekilde ekleyebiliriz.Böylelikle istediğimiz kadar renk ekleyip T-Shirt ve Pantalon nesnelerine de dokunmadan da haraket edebiliriz.
+
+Figure Birdge 1 implemantasyonu : 
+```csharp
+
+// Base class
+public class Giyim
 {
-    public function __construct(Theme $theme);
-    public function getContent();
-}
+    public string Beden { get; set; }
 
-class About implements WebPage
-{
-    protected $theme;
-
-    public function __construct(Theme $theme)
+    public virtual void BilgiYaz()
     {
-        $this->theme = $theme;
-    }
-
-    public function getContent()
-    {
-        return "About page in " . $this->theme->getColor();
+        Console.WriteLine($"Renk: {Renk}, Beden: {Beden}");
     }
 }
 
-class Careers implements WebPage
+// Derived class - TShirt
+public class TShirt : Giyim
 {
-    protected $theme;
-
-    public function __construct(Theme $theme)
+    public override void BilgiYaz()
     {
-        $this->theme = $theme;
-    }
-
-    public function getContent()
-    {
-        return "Careers page in " . $this->theme->getColor();
+        Console.WriteLine($"T-Shirt Beden: {Beden}");
     }
 }
+
+// Derived class - Pantalon
+public class Pantalon : Giyim
+{
+    public override void BilgiYaz()
+    {
+        Console.WriteLine($"Pantalon ->  Beden: {Beden}");
+    }
+}
+
+// Specific TShirt types
+public class BeyazTShirt : TShirt
+{
+
+    public string Renk { get; set; }
+    
+    public BeyazTShirt()
+    {
+        Renk = "Beyaz";
+    }
+}
+
+public class KirmiziTShirt : TShirt
+{
+
+    public string Renk { get; set; }
+    
+    public KirmiziTShirt()
+    {
+        Renk = "Kırmızı";
+    }
+}
+
+// Specific Pantalon types
+public class BeyazPantalon : Pantalon
+{
+
+    public string Renk { get; set; }
+    
+    public BeyazPantalon()
+    {
+        Renk = "Beyaz";
+    }
+}
+
+public class KirmiziPantalon : Pantalon
+{
+
+    public string Renk { get; set; }
+    
+    public KirmiziPantalon()
+    {
+        Renk = "Kırmızı";
+    }
+}
+
 ```
-And the separate theme hierarchy
-```php
 
-interface Theme
+Figure Bridge 2, Bridge pattern uygulanmış hali :
+
+```csharp
+public interface IRenk
 {
-    public function getColor();
+    string RenkAdi { get; }
 }
 
-class DarkTheme implements Theme
+public class Beyaz : IRenk
 {
-    public function getColor()
+    public string RenkAdi => "Beyaz";
+}
+
+public class Kirmizi : IRenk
+{
+    public string RenkAdi => "Kırmızı";
+}
+
+
+public abstract class Giyim
+{
+    public string Beden { get; set; }
+    public abstract void BilgiYaz();
+}
+
+
+public class TShirt : Giyim
+{
+    private IRenk renk;
+
+    public TShirt(IRenk renk)
     {
-        return 'Dark Black';
+        this.renk = renk;
+    }
+
+    public override void BilgiYaz()
+    {
+        Console.WriteLine($"T-Shirt -> Renk: {renk.RenkAdi}, Beden: {Beden}");
     }
 }
-class LightTheme implements Theme
+
+public class Pantalon : Giyim
 {
-    public function getColor()
+    private IRenk renk;
+
+    public Pantalon(IRenk renk)
     {
-        return 'Off white';
+        this.renk = renk;
+    }
+
+    public override void BilgiYaz()
+    {
+        Console.WriteLine($"Pantalon -> Renk: {renk.RenkAdi}, Beden: {Beden}");
     }
 }
-class AquaTheme implements Theme
+
+class Program
 {
-    public function getColor()
+    static void Main(string[] args)
     {
-        return 'Light blue';
+        Giyim tshirt1 = new TShirt(new Beyaz()) { Beden = "M" };
+        Giyim tshirt2 = new TShirt(new Kirmizi()) { Beden = "L" };
+        Giyim pantalon1 = new Pantalon(new Beyaz()) { Beden = "32" };
+        Giyim pantalon2 = new Pantalon(new Kirmizi()) { Beden = "34" };
+
+        tshirt1.BilgiYaz();
+        tshirt2.BilgiYaz();
+        pantalon1.BilgiYaz();
+        pantalon2.BilgiYaz();
     }
 }
-```
-And both the hierarchies
-```php
-$darkTheme = new DarkTheme();
 
-$about = new About($darkTheme);
-$careers = new Careers($darkTheme);
-
-echo $about->getContent(); // "About page in Dark Black";
-echo $careers->getContent(); // "Careers page in Dark Black";
 ```
 
 🌿 Composite
