@@ -798,7 +798,7 @@ class SarjCihaziAdaptor : ISarj
 
 🚡 Bridge
 ------
-Real world example
+Gerçek dünya senaryosu :
 
 > Varsayılım ki iki çeşit giysimiz olsun t-shirt ve pantalon. Giysilerin iki farklı renk sahip olması durumunda 2 farklı varyanta sahip olan t-shirt ve pantalon olması bekleriz aşağıdaki gibi : 
 
