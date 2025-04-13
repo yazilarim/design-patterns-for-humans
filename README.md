@@ -269,191 +269,119 @@ Aynı zamanda nesne yaratmayı client'tan alıp factory method'a yüklendiğinde
 
 🔨 #Soyut-Fabrika (Abstract Factory)
 ----------------
-
-
 Gerçek dünya seneryosu: 
-> Bir Genel Müdürün Developer ve/veya Analist işe alacağını düşünelim.  Genel Müdürün Developer ikiye ayrı grup olarak işe alım yapmak istiyor. Developer Grubu Front End ve Back End olarak ikiye ayrılmıştır.  Genel Müdür işe alacağı kişilerin pozisyonuna bağlı olarak kişiyi işe alması gerekmektedir. 
-> Artık Genel Müdür işçi alma(yaratma) işlemini başka bir kişiye devretmek istiyor.
-> Bu durumda Genel Müdür artık client olup işe alma sürecini HireManager'lara bırakmaksı gerekir.
-> İşe alım yapacak(işçi yaratacak) olan bu kişi fabrika metoduna sahip olacak olan nesnedir.
+> Son zamanlarda iş ilanlarında belli stack'leri yoğun olarak görmekteyiz örneğin dotnet+angular veya react+go gibi bu sebeple dotnet ve angular bir stack veya object family'si olarak görebiliriz aynı zamanda react ve go yu bir stack veya object family olarak görebiliriz.
 
 Basitçe : 
 > Abstract Factory : Fabrika metotlardan oluşan bir class'ıdır. 
 > 
 > Abstract Factory : Birbirleriye yakın ilşikisi olan nesneleri yaratım problemini bir araya toplar, birbirleriyle ilişkisi olmayan yapılar aynı abstract factory'ye koyulmamalıdır!!!
 > 
-> Abstract Factory : tekil(yani örneğimizdeki Analist) veya birliktelik ifade eden (Front End developer ve Back End developer) nesneleri yaratılma işlemini alt-class'lara yükler.
+> Abstract Factory : tekil veya birliktelik ifade edennesneleri yaratılma işlemini alt-class'lara yükler.
 
 **Yazılım Örneğin?**
 
-Çalışan yapımız aşağıdaki şekildedir : 
 ```csharp
-public interface Calisan
-{
-    void DoSomeWork();
-}
+ public interface IBeDeveloper
+ {
+ }
 
-public class FrontEndDeveloper : Calisan
-{
-    public void DoSomeWork()
-    {
-        System.Console.WriteLine("Ui yazılıyor");
-    }
-}
+ public interface IFeDeveloper
+ {
+ }
 
-public class BackEndDeveloper : Calisan
-{
-    public void DoSomeWork()
-    {
-        System.Console.WriteLine("API yazılıyor");
-    }
-}
+ public interface IAbstractFactory
+ {
+     IFeDeveloper CreateFeDeveloper();
 
-public class Analist : Calisan
-{
-    public void DoSomeWork()
-    {
-        System.Console.WriteLine("Analiz yapılıyor.");
-    }
-}
+     IBeDeveloper CreateBeDeveloper();
+ }
+
 ```
 
-Calisan runtime da gelen parametreye göre örneklenebilmesi için bir enum oluşturdum, eğer örneklemek istediğini yapıyı runtime ne olacağını bilemiyorsanız bir enum yaratıp yaratılacak nesnenin tipinin enum'a devredebilirsiniz.
 ```csharp
-public enum CalisanTipi
-{
-    FrontEndDeveloper,
-    BackEndDeveloper,
-    Analist
-}
+ 
+
+ public class AngularDeveloper : IFeDeveloper { }
+ public class DotnetDeveloper : IBeDeveloper { }
+
 ```
 
-Şimdi ise developer oluşturacaK  soyut fabrikayı (abstract factory) yaratalım : 
 ```csharp
 
-public abstract class AbstractDeveloperHireManager
-{
-    //Factory Method1
-    public abstract Calisan HireFrontEndDeveloper();
-    //Factory Method2
-    public abstract Calisan HireBackEndDeveloper();
-}
+ public class ReactDeveloper : IFeDeveloper { }
+ public class GoDeveloper : IBeDeveloper { }
 
-public class ConcreteDeveloperHireManager : AbstractDeveloperHireManager
-{
-    protected int DogruDeveloperCevap { get; } = 2;
-    // Factory Method1
-    public override Calisan HireFrontEndDeveloper()
-    {
-        var iseAlindiMi = SoruSorFrontEndDeveloper();
-        if (iseAlindiMi)
-            return new FrontEndDeveloper();
-        return null;
-    }
-    // Factory Method2
-    public override Calisan HireBackEndDeveloper()
-    {
-        var iseAlindiMi = SoruSorBackEndDeveloper();
-        if (iseAlindiMi)
-            return new BackEndDeveloper();
-        return null;
-    }
-    #region Yardımcı metotlar
-    protected bool SoruSorFrontEndDeveloper()
-    {
-        System.Console.WriteLine("1+1 = ?");
-        var cevap = System.Console.Read();
-        if(cevap==DogruDeveloperCevap)
-            return  true;
-        return false;
-    }
-    protected bool SoruSorBackEndDeveloper()
-    {
-        System.Console.WriteLine("0+2 = ?");
-        var cevap = System.Console.Read();
-        if(cevap==DogruDeveloperCevap)
-            return  true;
-        return false;
-    }
-    #endregion
-
-}
 ```
 
-Daha sonra analist yaratan soyut fabrikayı yaratalım : 
+```csharp
+
+ public class StackOneAbstractFactory : IAbstractFactory
+ {
+     public IBeDeveloper CreateBeDeveloper()
+     {
+         return new DotnetDeveloper();
+     }
+
+     public IFeDeveloper CreateFeDeveloper()
+     {
+         return new AngularDeveloper();
+     }
+ }
+ ```
 
 ```csharp
 
-public abstract class AbstractAnalistHireManager
-{
-    //Factory Method
-    public abstract Calisan HireAnalist();
-}
+ public class StackTwoAbstractFactory : IAbstractFactory
+ {
+     public IBeDeveloper CreateBeDeveloper()
+     {
+         return new GoDeveloper();
+     }
 
-public class ConcreteAnalistHireManager : AbstractAnalistHireManager
-{
-    public string DogruCevap { get;  } = "Problemi tespit etmek.";
-    public override Calisan HireAnalist()
-    {
-        if (SoruSor("Analist il görevi nedir?"))
-        {
-            return new Analist();
-        }
-        return null;
-    }
-
-    private bool SoruSor(string soru)
-    {
-        System.Console.WriteLine(soru);
-        var cevap = Console.ReadLine();
-        if (cevap == DogruCevap)
-        {
-            return true;
-        }
-        return false;
-    }
-}
-```
-
-Client kodu :
+     public IFeDeveloper CreateFeDeveloper()
+     {
+         return new ReactDeveloper();
+     }
+ }```
 
 ```csharp
-public class SirketMuduru
-{
-    public Calisan Hire(CalisanTipi calisanTipi)
-    {
-        var analist = calisanTipi == CalisanTipi.Analist;
-        var frontEnd = calisanTipi == CalisanTipi.FrontEndDeveloper;
-        var backEnd = calisanTipi == CalisanTipi.FrontEndDeveloper;
-        if (frontEnd || backEnd)
-        {
-            AbstractDeveloperHireManager developerFactory = new  ConcreteDeveloperHireManager();
-            if (frontEnd)
-            {
-                var frontEndDeveloper = developerFactory.HireFrontEndDeveloper();
-                return frontEndDeveloper;
-            }
-            if (backEnd)
-            {
-                var backEndDeveloper = developerFactory.HireBackEndDeveloper();
-                return backEndDeveloper;
-            }
-        }
-        if (analist)
-        {
-            AbstractAnalistHireManager analistHireManager = new ConcreteAnalistHireManager();
-            var analizci = analistHireManager.HireAnalist();
-            return analizci;
-        }
-        return null;
-    }
-}
+
+
+ public class Client
+ {
+     private readonly IAbstractFactory _abstractFactory;
+     public Client(IAbstractFactory abstractFactory)
+     {
+         _abstractFactory = abstractFactory;
+     }
+     public void Run()
+     {
+         var feDeveloper = _abstractFactory.CreateFeDeveloper();
+         var beDeveloper = _abstractFactory.CreateBeDeveloper();
+     }
+ }```
+
+```csharp
+
+ public class Program
+ {
+     static void Main(string[] args)
+     {
+         IAbstractFactory factory = new StackOneAbstractFactory();
+         var client = new Client(factory);
+         client.Run();
+         factory = new StackTwoAbstractFactory();
+         client = new Client(factory);
+         client.Run();
+     }
+ }
 ```
 
 Abstract factory birbirlye ilşkili olan nesnelerin yaratımını kapsüller,böylece hem karmaşa önlenir hem de daha temiz bir kod yapısına geçilebilir.
 
 **Ne zaman kullanılmalı ?**
-İlişkili nesnelerin veya bir nesne ailesinin olduğu yerde abstract factory kullanılabilir. Örneğimiz nesne ailesi calisan'lardır.
+İlişkili nesnelerin veya bir nesne ailesinin olduğu yerde abstract factory kullanılabilir. Örneğimiz nesne ailesi stack'lerdir.
 
 👷 #İnşa-Edici (Builder)
 --------------------------------------------
