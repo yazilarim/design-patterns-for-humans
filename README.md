@@ -453,7 +453,7 @@ public class SirketMuduru
 Abstract factory birbirlye ilşkili olan nesnelerin yaratımını kapsüller,böylece hem karmaşa önlenir hem de daha temiz bir kod yapısına geçilebilir.
 
 **Ne zaman kullanılmalı ?**
-İlişkili nesnelerin veya bir nesne ailesinin olduğu yerde abstract factory kullanılabilir. Örneğimiz nesne ailesi developer'lardır.
+İlişkili nesnelerin veya bir nesne ailesinin olduğu yerde abstract factory kullanılabilir. Örneğimiz nesne ailesi calisan'lardır.
 
 👷 #İnşa-Edici (Builder)
 --------------------------------------------
