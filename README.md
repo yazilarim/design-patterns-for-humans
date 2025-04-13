@@ -343,7 +343,8 @@ Basitçe :
      {
          return new ReactDeveloper();
      }
- }```
+ }
+```
 
 ```csharp
 
@@ -360,7 +361,8 @@ Basitçe :
          var feDeveloper = _abstractFactory.CreateFeDeveloper();
          var beDeveloper = _abstractFactory.CreateBeDeveloper();
      }
- }```
+ }
+```
 
 ```csharp
 
